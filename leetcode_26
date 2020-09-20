@@ -1,0 +1,16 @@
+class Solution {
+    public int removeDuplicates(int[] nums) 
+    {
+        var along=nums.length;
+        for(var i=0;i<nums.length-1;i++)
+        {
+            if(nums[i]==nums[i+1])
+            {
+                along--;
+                nums[i]=2147483647;
+            }
+        }
+        Arrays.sort(nums);
+        return along;
+    }
+}
