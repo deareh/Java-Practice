@@ -1,0 +1,21 @@
+class Solution {
+    public int maxSubArray(int[] nums) 
+    {
+        var len=nums.length;
+        var maxSum=nums[0];
+        var sum=0;
+        for(int j=0;j<len;j++)
+        {
+            sum+=nums[j];
+            if(sum>maxSum)
+            {
+                maxSum=sum;
+            }
+            if(sum<0)
+            {
+                sum=0;
+            }
+        }
+        return maxSum;
+    }
+}
