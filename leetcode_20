@@ -1,3 +1,9 @@
+/*
+1）建立一个空栈
+2）读入数组直到结束
+如果是（{[，则push入栈
+如果是）}]，则pop出栈，如果是对应的（{[，则正确，否则返回false
+3）结束后如果是空栈，则正确，否则错误
 class Solution {
     public boolean isValid(String s) 
     {
