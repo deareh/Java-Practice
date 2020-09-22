@@ -1,0 +1,54 @@
+class Solution {
+    public boolean isValid(String s) 
+    {
+        char[] schar=s.toCharArray();
+        if (schar.length==0)
+        return true;
+        var stack=new ArrayDeque();
+        for (var i:schar)
+        {
+            switch(i)
+            {
+                case('('):
+                stack.push('(');
+                break;
+                case(')'):
+				{
+                    if (stack.isEmpty())
+                    return false;
+					if(stack.pop().equals('('))
+					break;
+					return false;
+				}
+                case('['):
+                stack.push('[');
+                break;
+                case(']'):
+				{
+                    if (stack.isEmpty())
+                    return false;
+					if(stack.pop().equals('['))
+					break;
+					return false;
+				}
+                case('{'):
+                stack.push('{');
+                break;
+                case('}'):
+				{
+                    if (stack.isEmpty())
+                    return false;
+					if(stack.pop().equals('{'))
+					break;
+					return false;
+				}
+                default:
+                return false;
+            }
+        }
+        if (stack.isEmpty())
+        return true;
+        else
+        return false;
+    }
+}
