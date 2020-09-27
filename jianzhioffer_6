@@ -1,0 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int[] reversePrint(ListNode head) 
+    {
+        var stack=new ArrayDeque();
+        int i=0;
+        while (head!=null)
+        {
+            stack.push(head.val);
+            head=head.next;
+            i++;
+        }
+        int[] q=new int[i];
+        var j=0;
+        while(j<i)
+        {
+            q[j]=(int)stack.pop();
+            j++;
+        }
+        return q;
+    }
+}
+//2
+class Solution {
+    public int[] reversePrint(ListNode head) 
+    {
+        ArrayDeque<Integer> stack=new ArrayDeque<>();
+        while (head!=null)
+        {
+            stack.push(head.val);
+            head=head.next;
+        }
+        return (stack.stream().mapToInt(Integer::valueOf).toArray());
+        // 想要转换成int[]类型，就得先转成IntStream。
+        // 这里就通过mapToInt()把Stream<Integer>调用Integer::valueOf来转成IntStream
+        // 而IntStream中默认toArray()转成int[]。
+    }
+}
