@@ -6,6 +6,7 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+ //1
 class Solution {
     public ListNode deleteNode(ListNode head, int val) 
     {
@@ -23,5 +24,20 @@ class Solution {
             head=head.next;
         }
         return header.next;
+    }
+}
+//2
+class Solution {
+    public ListNode deleteNode(ListNode head, int val) 
+    {
+        if(head.val!=val)
+        {
+            head.next=deleteNode(head.next, val);
+        }
+        else
+        {
+            return head.next;
+        }
+        return head;
     }
 }
