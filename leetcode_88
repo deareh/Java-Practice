@@ -1,0 +1,37 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) 
+    {
+        int i=0;
+        int j=0;
+        var nums3=Arrays.copyOf(nums1,m);
+        while(i<m&&j<n)
+        {
+            if(nums3[i]<nums2[j])
+            {
+                nums1[i+j]=nums3[i];
+                i++;
+            }
+            else 
+            {
+                nums1[i+j]=nums2[j];
+                j++;
+            }
+        }
+        if (i<m)
+        {
+            for(var k=i+j;k<m+n;k++)
+            {
+                nums1[k]=nums3[i];
+                i++;
+            }
+        }
+        if(j<n)
+        {
+            for(var k=i+j;k<m+n;k++)
+            {
+                nums1[k]=nums2[j];
+                j++;
+            }
+        }
+    }
+}
