@@ -1,0 +1,36 @@
+//1
+class Solution {
+    public boolean isPalindrome(String s) 
+    {
+        s=s.toLowerCase();
+        String m=s.replaceAll("[^\\d|a-z|A-Z]","");
+        char[] str=m.toCharArray();
+        var i=0;
+        var stack=new ArrayDeque();
+        while(i<str.length/2)
+        {
+            stack.push(str[i]);
+            i++;
+        }
+        i=(str.length+1)/2;
+        while(i<str.length)
+        {
+            if(str[i]!=(char)stack.pop())
+            return false;
+            i++;
+        }
+        return true;
+    }
+}
+//2
+class Solution {
+    public boolean isPalindrome(String s) 
+    {
+        s=s.toLowerCase();
+        String m=s.replaceAll("[^\\d|a-z|A-Z]","");
+        var strb=new StringBuilder(m);
+        strb.reverse();
+        var str=new String(strb);
+        return (str.equals(m));
+    }
+}
