@@ -1,0 +1,37 @@
+//1
+class Solution {
+    public String addBinary(String a, String b)
+    {
+        int pre=0;
+        int sum=0;
+        String result=new String();
+        for (int i=a.length()-1,j=b.length()-1;i>=0||j>=0;i--,j--)
+        {
+            sum=pre;
+            sum+=i>=0?a.charAt(i)-48:0;
+            sum+=j>=0?b.charAt(j)-48:0;
+            result=((sum%2)==1?'1':'0')+result;
+            pre=sum>1?1:0;
+        }
+        return pre==1?'1'+result:result;
+    }
+}
+//2
+class Solution {
+    public String addBinary(String a, String b)
+    {
+        int pre=0;
+        int sum=0;
+        var result=new StringBuilder();
+        for (int i=a.length()-1,j=b.length()-1;i>=0||j>=0;i--,j--)
+        {
+            sum=pre;
+            sum+=i>=0?a.charAt(i)-48:0;
+            sum+=j>=0?b.charAt(j)-48:0;
+            result.append(sum%2);
+            pre=sum/2;
+        }
+        result.append(pre==1?pre:"");
+        return result.reverse().toString();
+    }
+}
