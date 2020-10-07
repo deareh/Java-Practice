@@ -1,0 +1,30 @@
+class Solution {
+    public int mySqrt(int x) {
+        if (x==0)
+        return 0;
+        long pre=1;
+        long last=x;
+        while(last-pre>1)
+        {
+            var mid=(pre+last)/2;
+            if (mid*mid>x)
+            last=mid;
+            else
+            pre=mid;
+        }
+        return (int)pre;
+    }
+}
+//2
+class Solution {
+    public int mySqrt(int x) {
+        double pre=0;
+        double last=1;
+        while(last-pre>0.1||pre-last>0.1)
+        {
+            pre=last;
+            last=last-(last*last-x)/(2*last);
+        }
+        return (int)last;
+    }
+}
