@@ -1,0 +1,44 @@
+//2
+class Solution {
+    public String countAndSay(int n) 
+    {
+        if(n==1)
+        return "1";
+        String rstr="";
+        String str=countAndSay(n-1);
+        int i=0;
+        int j=0;
+        while(j<str.length())
+        {
+            while(j<str.length()&&str.charAt(i)==str.charAt(j))
+            {
+                j++;
+            }
+            rstr=rstr+""+(j-i)+str.charAt(i);
+            i=j;
+        }
+        return rstr;
+    }
+}
+//2
+class Solution {
+    public String countAndSay(int n) 
+    {
+        if(n==1)
+        return "1";
+        StringBuffer rstr=new StringBuffer();
+        String str=countAndSay(n-1);
+        int i=0;
+        int j=0;
+        while(j<str.length())
+        {
+            while(j<str.length()&&str.charAt(i)==str.charAt(j))
+            {
+                j++;
+            }
+            rstr.append(j-i).append(str.charAt(i));
+            i=j;
+        }
+        return rstr.toString();
+    }
+}
