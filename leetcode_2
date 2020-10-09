@@ -1,0 +1,88 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+ //1
+class Solution {
+    public int[] add(int l1, int l2, int pre)
+    {
+        int[] res=new int[2];
+        res[1]=(l1+l2+pre)%10;
+        res[0]=(l1+l2+pre)/10;
+        return res;
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) 
+    {
+        ListNode prel=new ListNode();
+        ListNode head=new ListNode();
+        ListNode l3=new ListNode();
+        head.next=l3;
+        int pre=0;
+        while(l1!=null||l2!=null)
+        {
+            if(l1==null)
+            {
+                int[] res=add(0,l2.val,pre);
+                l3.val=res[1];
+                pre=res[0];
+                l2=l2.next;
+            }
+            else if(l2==null)
+            {
+                int[] res=add(0,l1.val,pre);
+                l3.val=res[1];
+                pre=res[0];
+                l1=l1.next;
+            }
+            else
+            {
+                int[] res=add(l1.val,l2.val,pre);
+                l3.val=res[1];
+                pre=res[0];
+                l1=l1.next;
+                l2=l2.next;
+            }
+            ListNode newl=new ListNode();
+            l3.next=newl;
+            prel=l3;
+            l3=l3.next;
+        }
+        if(pre!=0)
+            l3.val=pre;
+        else
+            prel.next=null;
+        return head.next;
+    }
+}
+//2
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head=new ListNode();
+        ListNode l3=new ListNode();
+        head.next=l3;
+        int pre=0;
+        int l1n=0;
+        int l2n=0;
+        int sum=0;
+        while(l1!=null||l2!=null)
+        {
+            l1n=l1!=null?l1.val:0;
+            l2n=l2!=null?l2.val:0;
+            sum=pre+l1n+l2n;
+            pre=sum/10;
+            l3.next=new ListNode(sum%10);
+            l3=l3.next;
+            if(l1!=null)
+                l1=l1.next;
+            if(l2!=null)
+                l2=l2.next;
+        }
+        if (pre!=0)
+            l3.next=new ListNode(pre);
+        return head.next.next;
+    }
+}
