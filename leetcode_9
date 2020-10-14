@@ -1,0 +1,28 @@
+class Solution {
+    public boolean isPalindrome(int x) 
+    {
+        var sx=x;
+        if(x<0)
+        {
+            return false;
+        }
+        else
+        {
+            var rx=0;
+            while(x/10!=0)
+            {
+                rx=rx*10+x%10;
+                x=x/10;
+            }
+            rx=rx*10+x;
+            if (rx==sx)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
