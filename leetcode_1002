@@ -1,0 +1,54 @@
+class Solution {
+    public HashMap<Character,Integer> count(String s)
+    {
+        HashMap<Character,Integer> map=new HashMap<>();
+        for(var i=0;i<s.length();i++)
+        {
+            if(map.containsKey(s.charAt(i)))
+            {
+                int j=map.remove(s.charAt(i));
+                map.put(s.charAt(i),++j);
+            }
+            else
+                map.put(s.charAt(i),1);
+        }
+        return map;
+    }
+    public List<String> commonChars(String[] A) 
+    {
+        if(A==null)
+            return null;
+        HashMap[] map=new HashMap[A.length];
+        for(var i=0;i<A.length;i++)
+        {
+            map[i]=count(A[i]);
+        }
+        List<String> list=new ArrayList<>();
+        while(!map[0].isEmpty())
+        {
+            for(char i=97;i<123;i++)
+            {
+                if(map[0].containsKey(i))
+                {
+                    int minlen=(Integer)map[0].remove(i);
+                    for(var j=1;j<map.length;j++)
+                    {
+                        if(map[j].containsKey(i))
+                        {
+                            minlen=minlen<(Integer)map[j].get(i)?minlen:(Integer)map[j].get(i);
+                        }
+                        else
+                        {
+                            minlen=0;
+                        }
+                    }                    
+                    for(var k=0;k<minlen;k++)
+                    {
+                        list.add(String.valueOf(i));
+                    }
+                }
+            }
+        }
+        return list;
+    }
+}
