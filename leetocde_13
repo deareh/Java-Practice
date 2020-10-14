@@ -1,0 +1,106 @@
+class Solution 
+{
+    public int romanToInt(String s) 
+    {
+       char[] roman=s.toCharArray();
+       int result=0;
+       for(var i=0;i<roman.length;i++)
+       {
+           if(roman[i]=='I'&&i!=(roman.length-1))
+           {
+               if(roman[i+1]=='V')
+               {
+                   result=result+4;
+                   i++;
+                   continue;
+               }
+               else if(roman[i+1]=='X')
+               {
+                   result=result+9;
+                   i++;
+                   continue;
+               }
+               else
+               {
+                   result=result+1;
+                   continue;
+               }
+           }
+           else if(roman[i]=='I')
+               {
+                   result=result+1;
+                   continue;
+               }
+           else if(roman[i]=='X'&&i!=(roman.length-1))
+           {
+               if (roman[i+1]=='L')
+               {
+                   result=result+40;
+                   i++;
+                   continue;
+               }
+               else if(roman[i+1]=='C')
+               {
+                   result=result+90;
+                   i++;
+                   continue;
+               }
+               else
+               {
+                   result=result+10;
+                   continue;
+               }
+           }
+           else if(roman[i]=='X')
+               {
+                   result=result+10;
+                   continue;
+               }
+           else if(roman[i]=='C'&&i!=(roman.length-1))
+           {
+               if(roman[i+1]=='D')
+               {
+                   result=result+400;
+                   i++;
+                   continue;
+               }
+               else if(roman[i+1]=='M')
+               {
+                   result=result+900;
+                   i++;
+                   continue;
+               }
+               else
+               {
+                   result=result+100;
+                   continue;
+               }
+           }
+           else if(roman[i]=='C')
+               {
+                   result=result+100;
+                   continue;
+               }
+           else if(roman[i]=='V')
+           {
+               result=result+5;
+               continue;
+           }
+           else if(roman[i]=='L')
+           {
+               result=result+50;
+               continue;
+           }
+           else if(roman[i]=='D')
+           {
+               result=result+500;
+               continue;
+           }
+           else
+           {
+               result=result+1000;
+           }
+       }
+       return result;
+    }
+}
