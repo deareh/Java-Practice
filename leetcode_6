@@ -1,0 +1,23 @@
+class Solution {
+    public String convert(String s, int numRows) 
+    {
+        if(numRows==1)
+            return s;
+        var res=new StringBuilder();
+        //res.append(s.charAt(0));
+        for(var j=0;j<numRows;j++)
+        {
+            int i=0;
+            while((j+(numRows-1)*2*i)<s.length())
+            {
+                res.append(s.charAt(j+(numRows-1)*2*i));
+                if(j>0&&j<numRows-1&&((numRows-j-1)*2+j+(numRows-1)*2*i)<s.length())
+                {
+                    res.append(s.charAt((numRows-j-1)*2+j+(numRows-1)*2*i));
+                }
+                i++;
+            }
+        }
+        return res.toString();
+    }
+}
