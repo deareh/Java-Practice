@@ -1,0 +1,72 @@
+//1
+import java.util.regex.*;
+class Solution {
+    public int myAtoi(String s) 
+    {
+        s=s.trim();
+        int res=0;
+        Matcher m=Pattern.compile("^[\\+|\\-]?\\d+").matcher(s);
+        if(m.find())
+        {
+            try
+            {
+                res=Integer.parseInt(m.group());
+            }
+            catch(Exception e)
+            {
+                res=m.group().charAt(0)=='-'?Integer.MIN_VALUE:Integer.MAX_VALUE;
+            }
+        }
+        return res;
+    }
+}
+//2
+class Solution {
+    public int myAtoi(String s) 
+    {
+        Automation auto=new Automation();
+        for(var i=0;i<s.length();i++)
+        {
+            auto.get(s.charAt(i));
+        }
+        return (int)(auto.ans*auto.sign);
+    }
+    
+}
+class Automation
+{
+    public int sign=1;
+    public long ans=0;
+    public String state="start";
+    private Map<String, String[]> table = new HashMap<String, String[]>() {{
+        put("start", new String[]{"start", "signed", "number", "end"});
+        put("signed", new String[]{"end", "end", "number", "end"});
+        put("number", new String[]{"end", "end", "number", "end"});
+        put("end", new String[]{"end", "end", "end", "end"});
+    }};
+    
+    public void get(char c)
+    {
+        state=table.get(state)[getnext(c)];
+        if(state=="number")
+        {
+            ans=ans*10+c-'0';
+            ans=sign==1?Math.min(ans, (long) Integer.MAX_VALUE) : Math.min(ans, -(long) Integer.MIN_VALUE);
+        }
+        if(state=="signed")
+        {
+            sign=c=='+'?1:-1;
+        }
+    }
+
+    public int getnext(char c)
+    {
+        if (c==' ')
+            return 0;
+        if (c=='+'||c=='-')
+            return 1;
+        if (Character.isDigit(c))
+            return 2;
+        return 3;
+    }
+}
