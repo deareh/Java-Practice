@@ -1,0 +1,67 @@
+//1
+class Solution {
+    public int[] sortedSquares(int[] A) 
+    {
+        for(var i=0;i<A.length;i++)
+        {
+            A[i]=A[i]*A[i];
+        }
+        Arrays.sort(A);
+        return A;
+    }
+}
+//2
+class Solution {
+    public int[] sortedSquares(int[] A) 
+    {
+        if(A==null)
+            return A;
+        int j=0;
+        while(j<A.length&&A[j]<0)
+        {
+            A[j]=-A[j];
+            j++;
+        }
+        Arrays.sort(A);
+        for(var i=0;i<A.length;i++)
+        {
+            A[i]=A[i]*A[i];
+        }
+        
+        return A;
+    }
+}
+//3
+class Solution {
+    public int[] sortedSquares(int[] A) 
+    {
+        if(A==null)
+            return A;
+        int len=A.length;
+        for(var i=0;i<len;i++)
+        {
+            A[i]=A[i]*A[i];
+        }
+        var j=0;
+        var l=len-1;
+        var m=len-1;
+        int[] B=new int[len];
+        for(var i=0;i<len;i++)
+        {
+            if(A[j]<A[l])
+            {
+                B[m]=A[l];
+                m--;
+                l--;
+            }
+            else
+            {
+                B[m]=A[j];
+                m--;
+                j++;
+            }
+        }
+        
+        return B;
+    }
+}
