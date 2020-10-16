@@ -1,3 +1,4 @@
+//1
 class Solution 
 {
     public int romanToInt(String s) 
@@ -102,5 +103,102 @@ class Solution
            }
        }
        return result;
+    }
+}
+//2
+class Solution 
+{
+    public int romanToInt(String s) 
+    {
+        Automation auto=new Automation();
+       for(var i=0;i<s.length();i++)
+       {
+           auto.get(s.charAt(i));
+       }
+       return auto.ans;
+    }
+}
+class Automation
+{
+    int ans=0;
+    int state=0;
+    HashMap<Integer,Integer[]> table=new HashMap<>(){{
+        put(0,new Integer[]{1,5,10,50,100,500,1000});
+        put(1,new Integer[]{1,4,9,50,100,500,1000});
+        put(5,new Integer[]{1,5,10,50,100,500,1000});
+        put(10,new Integer[]{1,5,10,4,9,500,1000});
+        put(50,new Integer[]{1,5,10,50,100,500,1000});
+        put(100,new Integer[]{1,5,10,50,100,4,9});
+        put(500,new Integer[]{1,5,10,50,100,500,1000});
+        put(1000,new Integer[]{1,5,10,50,100,500,1000});
+        put(4,new Integer[]{1,5,10,50,100,500,1000});
+        put(9,new Integer[]{1,5,10,50,100,500,1000});}};
+
+    public void get(char c)
+    {
+        int i=1;
+        switch (c)
+        {
+            case 'I':
+            i=1;
+            break;
+            case 'V':
+            i=5;
+            break;
+            case 'X':
+            i=10;
+            break;
+            case 'L':
+            i=50;
+            break;
+            case 'C':
+            i=100;
+            break;
+            case 'D':
+            i=500;
+            break;
+            case 'M':
+            i=1000;
+            break;
+            default:
+            i=1;
+        }
+        Integer[] sta=table.get(state);
+        state=(int)sta[getnext(i)];
+        int j=i;
+        if(i==10||i==100|i==1000)
+            j=i/2;
+        if(state==4)
+        {
+            ans=ans-(j/5)+state*(i/5);
+        }
+        else if(state==9)
+        {
+            ans=ans-(j/5)+state*(i/10);
+        }
+        else
+        {
+            ans=ans+state;
+        }
+        System.out.println(i+","+state+","+ans);
+    }
+    public int getnext(int i)
+    {
+        if(i==1)
+            return 0;
+        if(i==5)
+            return 1;
+        if(i==10)
+            return 2;
+        if(i==50)
+            return 3;
+        if(i==100)
+            return 4;
+        if(i==500)
+            return 5;
+        if(i==1000)
+            return 6;
+        else
+            return 0;
     }
 }
