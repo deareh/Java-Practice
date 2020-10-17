@@ -1,0 +1,42 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) 
+    {
+        ArrayList<List<Integer>> list=new ArrayList<>();
+        var len=nums.length;
+        if(len==0)
+            return list;
+        Arrays.sort(nums);
+        for(var i=0;i<len-2;i++)
+        {
+            if(i>0&&nums[i-1]==nums[i])
+            {
+                continue;
+            }
+            var k=len-1;
+            var j=i+1;
+            for(j=i+1;j<k;j++)
+            {
+                if(j>i+1&&nums[j-1]==nums[j])
+                {
+                    continue;
+                }
+                var sum=nums[k]+nums[j]+nums[i];              
+                while(k!=j&&sum>=0)
+                {
+                    if(sum==0)
+                    {
+                        ArrayList<Integer> res=new ArrayList<>();
+                        res.add(nums[i]);
+                        res.add(nums[j]);
+                        res.add(nums[k]);
+                        list.add(res);
+                        break;
+                    }
+                    k--;
+                    sum=nums[k]+nums[j]+nums[i];
+                }
+            }
+        }
+        return list;
+    }
+}
