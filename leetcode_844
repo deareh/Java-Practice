@@ -1,0 +1,49 @@
+class Solution {
+    public boolean backspaceCompare(String S, String T) 
+    {
+        var slen=S.length()-1;
+        var tlen=T.length()-1;
+        int i=0;
+        int j=0;
+        while(slen>-1||tlen>-1)
+        {
+            while(slen>=0)
+            {
+                if(S.charAt(slen)=='#')
+                {
+                    slen--;
+                    i++;
+                }
+                else if(i>0)
+                {
+                    i--;
+                    slen--;
+                }
+                else
+                    break;
+            }
+            while(tlen>=0)
+            {
+                if(T.charAt(tlen)=='#')
+                {
+                    j++;
+                    tlen--;
+                }
+                else if(j>0)
+                {
+                    tlen--;
+                    j--;
+                }
+                else
+                    break;
+            }
+            if(slen>-1&&tlen>-1&&S.charAt(slen)!=T.charAt(tlen))
+                return false;
+            else if((slen>-1&&tlen<0)||(tlen>-1&&slen<0))
+                return false;
+            slen--;
+            tlen--;
+        }
+        return true;
+    }
+}
