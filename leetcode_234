@@ -1,0 +1,115 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+//1
+class Solution {
+    public boolean isPalindrome(ListNode head) 
+    {
+        if(head==null)
+            return true;
+        Deque<Integer> stack=new ArrayDeque<>();
+        ListNode l1=head;
+        ListNode l2=head;
+        while(l2!=null&&l2.next!=null)
+        {
+            l2=l2.next.next;
+            stack.push(l1.val);
+            l1=l1.next;
+        }
+        if(l2!=null)
+            l1=l1.next;
+        while(!stack.isEmpty())
+        {
+            if(stack.pop()!=l1.val)
+                return false;
+            l1=l1.next;
+        }
+        return true;
+    }
+}
+//2
+class Solution {
+    public boolean isPalindrome(ListNode head) 
+    {
+        if(head==null)
+            return true;
+        ListNode l1=head;
+        ListNode l2=head;
+        ListNode pre=new ListNode();
+        while(l2!=null&&l2.next!=null)
+        {
+            l2=l2.next.next;
+            ListNode temp=l1.next;
+            l1.next=pre;
+            pre=l1;
+            l1=temp;
+        }
+        if(l2!=null)
+            l1=l1.next;
+        while(l1!=null)
+        {
+            if(pre.val!=l1.val)
+                return false;
+            pre=pre.next;
+            l1=l1.next;
+        }
+        return true;
+    }
+}
+//3
+class Solution {
+    public boolean isPalindrome(ListNode head) 
+    {
+        if(head==null)
+            return true;
+        ListNode l1=head;
+        ListNode l2=head;
+        ListNode pre=new ListNode();
+        while(l2!=null&&l2.next!=null)
+        {
+            l2=l2.next.next;
+            pre=l1;
+            l1=l1.next;
+        }
+        pre.next=null;
+        pre=reverseList(head);
+        ListNode temp_l1=l1;
+        ListNode temp_pre=pre;
+        if(l2!=null)
+            l1=l1.next;
+        while(l1!=null)
+        {
+            if(pre.val!=l1.val)
+            {
+                head=reverseList(temp_pre);
+                temp_pre.next=temp_l1;
+                return false;
+            }
+            pre=pre.next;
+            l1=l1.next;
+        }
+        head=reverseList(temp_pre);
+        temp_pre.next=temp_l1;
+        return true;
+    }
+    public ListNode reverseList(ListNode head)
+    {
+        if(head.next==null)
+            return head;
+        ListNode pre=new ListNode();
+        while(head.next!=null)
+        {
+            ListNode temp=head.next;
+            head.next=pre;
+            pre=head;
+            head=temp;
+        }
+        head.next=pre;
+        return head;
+    }
+}
