@@ -1,0 +1,111 @@
+//1
+class Solution {
+    public int videoStitching(int[][] clips, int T) 
+    {
+        int len=clips.length;
+        if(len==0)
+            return -1;
+        int first=0;
+        int max=0;
+        int num=0;
+        for(var i=0;i<len;i++)
+        {
+            if(clips[i][0]==0&&clips[i][1]>max)
+            {
+                first=i;
+                max=clips[i][1];
+                num=1;
+            }
+        }
+        if(num==0)
+            return -1;
+        int last=first;
+        while(clips[last][1]<T)
+        {
+            boolean flag=false;
+            int head=clips[last][1];
+            max=clips[last][1];
+            for(var j=0;j<len;j++)
+            {
+                if(clips[j][0]<=head&&clips[j][1]>max)
+                {
+                    max=clips[j][1];
+                    last=j;
+                    flag=true;
+                }
+            }
+            num=flag?num+1:num;
+            if(!flag)
+                return -1;
+        }
+        return num;
+    }
+}
+//2
+class Solution {
+    public int videoStitching(int[][] clips, int T) 
+    {
+        int len=clips.length;
+        if(len==0)
+            return -1;
+        int[] max=new int[101];
+        for(var i=0;i<len;i++)
+        {
+            max[clips[i][0]]=max[clips[i][0]]>clips[i][1]?max[clips[i][0]]:clips[i][1];
+        }
+        if(max[0]==0)
+            return -1;
+        int num=1;
+        int last=0;
+        while(max[last]<T)
+        {
+            int next=-1;
+            int maxnext=max[last];
+            int i=max[last];
+            while(i>last)
+            {
+                if(max[i]>maxnext)
+                {
+                    next=i;
+                    maxnext=max[i];
+                }
+                i--;
+            }
+            if(next==-1)
+                return -1;
+            last=next;
+            num++;
+        }
+        return num;
+    }
+}
+//3
+class Solution {
+    public int videoStitching(int[][] clips, int T) 
+    {
+        int len=clips.length;
+        if(len==0)
+            return -1;
+        int[] max=new int[T];
+        for(var i=0;i<len;i++)
+        {
+            if(clips[i][0]<T)
+                max[clips[i][0]]=max[clips[i][0]]>clips[i][1]?max[clips[i][0]]:clips[i][1];
+        }
+        int num=0;
+        int last=0;
+        int pre=0;
+        for(var i=0;i<T;i++)
+        {
+            last=Math.max(last,max[i]);
+            if(last==i)
+                return -1;
+            if(i==pre)
+            {
+                num++;
+                pre=last;
+            }
+        }
+        return num;
+    }
+}
