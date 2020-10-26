@@ -1,0 +1,20 @@
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) 
+    {
+        int[] num=Arrays.copyOf(nums,nums.length);
+        Arrays.sort(num);
+        int[] count = new int[101];
+        count[nums[0]]=0;
+        for(var i=1;i<num.length;i++)
+        {
+            if(num[i]!=num[i-1])
+                count[num[i]]=i;
+        }
+        int[] res=new int[nums.length];
+        for(var j=0;j<nums.length;j++)
+        {
+            res[j]=count[nums[j]];
+        }
+        return res;
+    }
+}
