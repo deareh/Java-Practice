@@ -1,0 +1,26 @@
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) 
+    {
+        HashSet<Integer> set=new HashSet<>();
+        Arrays.sort(arr);
+        int count=1;
+        boolean flag=true;
+        for(var i=1;i<arr.length;i++)
+        {
+            if(arr[i]==arr[i-1])
+                count++;
+            if(arr[i]!=arr[i-1])
+            {
+                flag=set.add(count);
+                count=1;
+            }
+            if(!flag)
+                return false;
+        }
+        if(arr.length>1&&arr[arr.length-1]==arr[arr.length-2])
+            flag=set.add(count++);
+        else
+            flag=set.add(1);
+        return flag;
+    }
+}
