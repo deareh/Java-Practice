@@ -1,0 +1,29 @@
+class Solution {
+    public int[] sortByBits(int[] arr) 
+    {
+        int[] count = new int[10001];
+        for (int i = 1; i <= 10000; ++i) {
+            count[i] = count[i >> 1] + (i & 1);
+        }
+
+        List<Integer> list=new ArrayList<>();
+        for(var i=0;i<arr.length;i++)
+        {
+            list.add(arr[i]);
+        }
+        Collections.sort(list,new Comparator<Integer>(){
+            public int compare(Integer o1,Integer o2)
+            {
+                if(count[o1]!=count[o2])
+                    return count[o1]-count[o2];
+                else
+                    return o1-o2;
+            }
+        });
+        for(var i=0;i<arr.length;i++)
+        {
+            arr[i]=list.get(i);
+        }
+        return arr;
+    }
+}
