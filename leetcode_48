@@ -1,0 +1,29 @@
+class Solution {
+    public void rotate(int[][] matrix) 
+    {
+        int len=matrix.length;
+        int i=0;
+        while(len>=2)
+        {
+            int[] temp1=Arrays.copyOfRange(matrix[i],i,matrix.length-i);
+            int[] temp2=Arrays.copyOfRange(matrix[matrix.length-i-1],i,matrix.length-i);
+            int temp3=matrix[i][i];
+            matrix[i][i]=matrix[matrix.length-i-1][i];
+            matrix[matrix.length-i-1][i]=matrix[matrix.length-i-1][matrix.length-i-1];
+            matrix[matrix.length-i-1][matrix.length-i-1]=matrix[i][matrix.length-i-1];
+            matrix[i][matrix.length-i-1]=temp3;
+            for(int j=i+1;j<matrix.length-i-1;j++)
+            {
+                matrix[i][matrix.length-j-1]=matrix[j][i];
+                matrix[matrix.length-1-i][j]=matrix[matrix.length-j-1][matrix.length-i-1];               
+            }
+            for(int j=i+1;j<matrix.length-i-1;j++)
+            {
+                matrix[j][i]=temp2[j-i];
+                matrix[matrix.length-j-1][matrix.length-i-1]=temp1[matrix.length-j-i-1];
+            }
+            len-=2;
+            i++;
+        }
+    }
+}
