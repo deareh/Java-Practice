@@ -1,0 +1,64 @@
+//1
+class Solution {
+    public int[][] kClosest(int[][] points, int K) 
+    {
+        int[] dist=new int[points.length];
+        for(var i=0;i<points.length;i++)
+        {
+            dist[i]=(points[i][0]*points[i][0]+points[i][1]*points[i][1]);
+        }
+        Qsort(dist,points,0,dist.length-1);
+        return Arrays.copyOf(points,K);
+    }
+    public void Qsort(int[] dist,int[][] points,int start,int end)
+    {
+        int pivot=0;
+        if(start<end)
+        {
+            pivot=partition(dist,points,start,end);
+            Qsort(dist,points,start,pivot-1);
+            Qsort(dist,points,pivot+1,end);
+        }
+    }
+    public int partition(int[] dist,int[][] points,int start,int end)
+    {
+        int mid=(start+end)/2;
+        int pivotkey=dist[start]>dist[end]?start:end;
+        int temp=dist[mid]>dist[end]?mid:end;
+        pivotkey=dist[pivotkey]>dist[temp]?temp:pivotkey;
+        swap(dist,points,pivotkey,start);
+        int pivot=dist[start];
+        while(start<end)
+        {
+            while(start<end&&dist[end]>=pivot)
+                end--;
+            swap(dist,points,start,end);
+            while(start<end&&dist[start]<=pivot)
+                start++;
+            swap(dist,points,start,end);
+        }
+        return start;
+    }
+    public void swap(int[] dist, int[][] points,int a,int b)
+    {
+        int temp1=dist[a];
+        int[] temp2=points[a];
+        dist[a]=dist[b];
+        points[a]=points[b];
+        dist[b]=temp1;
+        points[b]=temp2;
+        
+    }
+}
+//2
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        Arrays.sort(points,new Comparator<int[]>(){
+            public int compare(int[] o1,int[] o2)
+            {
+                return o1[0]*o1[0]+o1[1]*o1[1]-o2[0]*o2[0]-o2[1]*o2[1];
+            }
+        });
+        return Arrays.copyOf(points, K);
+    }
+}
