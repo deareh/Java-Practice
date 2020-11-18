@@ -1,0 +1,58 @@
+//1
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        for(var i=0;i<gas.length;i++)
+        {
+            int k=i;
+            int sum=0;
+            int flag=0;
+            for(var j=0;j<gas.length;j++)
+            {
+                if(k==gas.length)
+                    k=0;
+                sum+=gas[k];
+                sum-=cost[k];
+                if(sum<0)
+                {
+                    flag=-1;
+                    break;
+                }
+                k++;
+            }
+            if(sum>=0&&flag==0)
+                return i;
+        }
+        return -1;
+    }
+}
+//2
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int i=0;
+        while(i<gas.length)
+        {
+            int k=i;
+            int cnt=i;
+            int sum=0;
+            int flag=0;
+            for(var j=0;j<gas.length;j++)
+            {
+                if(k==gas.length)
+                    k=0;
+                sum+=gas[k];
+                sum-=cost[k];
+                if(sum<0)
+                {
+                    flag=-1;
+                    break;
+                }
+                k++;
+                cnt++;
+            }
+            if(sum>=0&&flag==0)
+                return i;
+            i=cnt+1;
+        }
+        return -1;
+    }
+}
