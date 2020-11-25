@@ -1,0 +1,73 @@
+//1
+class Solution {
+    public String sortString(String s) {
+        char[] c=s.toCharArray();
+        Arrays.sort(c);
+        int[] index=new int[27];
+        int j=0;
+        for(var i=0;i<26;i++)
+        {
+            if(j<c.length&&c[j]==97+i)
+            {
+                index[i]=j;
+                while(j<c.length&&c[j]==97+i)
+                    j++;
+            }
+            else
+                index[i]=j;
+        }
+        index[26]=c.length;
+        int[] tem=Arrays.copyOf(index,27);
+        StringBuilder res=new StringBuilder();
+        while(res.length()<c.length)
+        {
+            for(var i=0;i<26;i++)
+            {
+                if(tem[i]<index[i+1])
+                {
+                    res.append((char)(97+i));
+                    tem[i]++;
+                }
+            }
+            for(var i=25;i>-1;i--)
+            {
+                if(tem[i]<index[i+1])
+                {
+                    res.append((char)(97+i));
+                    tem[i]++;
+                }
+            }
+        }
+        return res.toString();
+    }
+}
+//2
+class Solution {
+    public String sortString(String s) {
+        int[] index=new int[26];
+        int j=0;
+        while(j<s.length())
+            index[s.charAt(j++)-97]++;
+        StringBuilder res=new StringBuilder();
+        while(res.length()<s.length())
+        {
+            for(var i=0;i<26;i++)
+            {
+                if(index[i]!=0)
+                {
+                    res.append((char)(97+i));
+                    index[i]--;
+                }
+            }
+            for(var i=25;i>-1;i--)
+            {
+                if(index[i]!=0)
+                {
+                    res.append((char)(97+i));
+                    index[i]--;
+                }
+            }
+        }
+        return res.toString();
+    }
+}
