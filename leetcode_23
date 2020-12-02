@@ -1,0 +1,81 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+ //1
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode list=new ListNode();
+        ListNode head=list;
+        int len=0;
+        for(ListNode i:lists)
+        {
+            while(i!=null)
+            {
+                len++;
+                i=i.next;
+            }
+        }
+        while(len>0)
+        {
+            ListNode min=new ListNode(10001);
+            int minIndex=-1;
+            for(int i=0;i<lists.length;i++)
+            {
+                if(lists[i]!=null&&lists[i].val<min.val)
+                {
+                    min=lists[i];
+                    minIndex=i;
+                }
+            }
+            len--;
+            list.next=min;
+            list=list.next;
+            lists[minIndex]=lists[minIndex].next;
+        }
+        return head.next;
+    }
+}
+//2
+class Solution {
+    class Status implements Comparable<Status>{
+        int val;
+        ListNode ptr;
+        
+        Status(int val,ListNode ptr)
+        {
+            this.val=val;
+            this.ptr=ptr;
+        }
+        public int compareTo(Status s2)
+        {
+            return this.val-s2.val;
+        }
+    }
+    
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode list=new ListNode();
+        ListNode head=list;
+        PriorityQueue<Status> queue=new PriorityQueue<>();
+        for(int i=0;i<lists.length;i++)
+        {
+            if(lists[i]!=null)
+                queue.offer(new Status(lists[i].val,lists[i]));
+        }
+        while(!queue.isEmpty())
+        {
+            Status s=queue.poll();
+            list.next=s.ptr;
+            list=list.next;
+            if(s.ptr.next!=null)
+                queue.offer(new Status(s.ptr.next.val,s.ptr.next));
+        }
+        return head.next;
+    }
+}
