@@ -1,0 +1,27 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] cnt=new int[26];
+        for(char i:tasks)
+        {
+            cnt[i-65]++;
+        }
+        Arrays.sort(cnt);
+        int sum=0;
+        while(cnt[25]>0)
+        {
+            cnt[25]--;
+            sum+=n+1;
+            for(int j=24;j>24-n;j--)
+            {
+                if(j>-1&&cnt[j]>0)
+                    cnt[j]--;
+                else if(cnt[25]==0)
+                {
+                    return sum-n+24-j;
+                }
+            }
+            Arrays.sort(cnt);
+        }
+        return sum;
+    }
+}
