@@ -1,0 +1,25 @@
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        int[] bag=new int[2];
+        for(int i:bills)
+        {
+            if(i==5)
+                bag[0]++;
+            else if(i==10){
+                bag[0]--;
+                bag[1]++;
+            }
+            else if(i==20){
+                if(bag[1]>0){
+                    bag[1]--;
+                    bag[0]--;
+                }
+                else
+                    bag[0]-=3;
+            }
+            if(bag[0]<0||bag[1]<0)
+                return false;
+        }
+        return true;
+    }
+}
