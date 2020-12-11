@@ -1,0 +1,21 @@
+class Solution {
+    public String predictPartyVictory(String senate) {
+        Deque<Integer> fifo1=new ArrayDeque<>();
+        Deque<Integer> fifo2=new ArrayDeque<>();
+        for(int i=0;i<senate.length();i++){
+            if(senate.charAt(i)=='R')
+                fifo1.add(i);
+            else
+                fifo2.add(i);
+        }
+        while(!fifo1.isEmpty()&&!fifo2.isEmpty()){
+            int r=fifo1.poll();
+            int d=fifo2.poll();
+            if(r<d)
+                fifo1.add(r+senate.length());
+            else
+                fifo2.add(d+senate.length());
+        }
+        return fifo1.isEmpty()?"Dire":"Radiant";
+    }
+}
