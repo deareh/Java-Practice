@@ -1,0 +1,62 @@
+//1
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> list=new ArrayList<>();
+        
+        for(int i=0;i<strs.length;i++){
+            if(strs[i]!=null){
+                List<String> tmp=new ArrayList<>();
+                tmp.add(strs[i]);
+                for(int j=i+1;j<strs.length;j++){
+                    if(equal(strs[i],strs[j])){
+                        tmp.add(strs[j]);
+                        strs[j]=null;
+                    }
+                }
+                list.add(tmp);
+            }
+        }
+        return list;
+    }
+    public boolean equal(String a,String b){
+        if(b==null||a==null){
+            return false;
+        }
+        if(a.length()!=b.length()){
+            return false;
+        }
+        char[] ca=a.toCharArray();
+        char[] cb=b.toCharArray();
+        Arrays.sort(ca);
+        Arrays.sort(cb);
+        return Arrays.equals(ca,cb);
+    }
+}
+//2
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,List<String>> map=new HashMap<>();
+        for(String a:strs){
+            int[] cnt=count(a);
+            StringBuilder sb=new StringBuilder();
+            for(int i=0;i<26;i++){
+                if(cnt[i]!=0){
+                    sb.append((char)('a'+i));
+                    sb.append(cnt[i]);
+                }
+            }
+            String key=sb.toString();
+            List<String> list=map.getOrDefault(key,new ArrayList<>());
+            list.add(a);
+            map.put(key,list);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+    public int[] count(String a){
+        int[] cnt=new int[26];
+        for(int i=0;i<a.length();i++){
+            cnt[a.charAt(i)-'a']++;
+        }
+        return cnt;
+    }
+}
