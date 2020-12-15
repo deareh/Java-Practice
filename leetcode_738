@@ -1,0 +1,57 @@
+//1
+class Solution {
+    public int monotoneIncreasingDigits(int N) {
+        String s=N+"";
+        int n=N;
+        int[] num=new int[s.length()];
+        for(int i=num.length-1;i>=0;i--){
+            num[i]=n%10;
+            n=n/10;
+        }
+        for(int i=1;i<num.length;i++){
+            if(num[i]<num[i-1]){
+                i--;
+                while(i>0){
+                    if(num[i]>num[i-1]){
+                        break;
+                    }
+                    i--;
+                }
+                int res=0;
+                for(int j=0;j<num.length;j++){
+                    if(j<i){
+                        res=res*10+num[j];
+                    }
+                    else if(j==i){
+                        res=res*10+num[j]-1;
+                    }
+                    else{
+                        res=res*10+9;
+                    }
+                }
+                return res;
+            }
+        }
+        return N;
+    }
+}
+//2
+class Solution {
+    public int monotoneIncreasingDigits(int N) {
+        char[] num=Integer.toString(N).toCharArray();
+        int i=1;
+        while(i<num.length&&num[i]>=num[i-1]){
+            i++;
+        }
+        if(i<num.length){
+            while(i>0&&num[i]<num[i-1]){
+                num[i-1]--;
+                i--;
+            }
+            for(i++;i<num.length;i++){
+                num[i]='9';
+            }
+        }
+        return Integer.parseInt(new String(num));
+    }
+}
