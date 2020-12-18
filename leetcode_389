@@ -1,0 +1,27 @@
+//1
+class Solution {
+    public char findTheDifference(String s, String t) {
+        char[] strs=s.toCharArray();
+        char[] trs=t.toCharArray();
+        Arrays.sort(strs);
+        Arrays.sort(trs);
+        for(int i=0;i<strs.length;i++){
+            if(strs[i]!=trs[i])
+                return trs[i];
+        }
+        return trs[trs.length-1];
+    }
+}
+//2
+class Solution {
+    public char findTheDifference(String s, String t) {
+        int res=0;
+        for(int i=0;i<s.length();i++){
+            res^=s.charAt(i);
+        }
+        for(int i=0;i<t.length();i++){
+            res^=t.charAt(i);
+        }
+        return (char)res;
+    }
+}
