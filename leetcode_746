@@ -1,0 +1,16 @@
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        int[] cnt=new int[cost.length];
+        cnt[0]=cost[0];
+        cnt[1]=cost[1];
+        for(int i=2;i<cost.length;i++){
+            if(cnt[i-2]<cnt[i-1]){
+                cnt[i]=cost[i]+cnt[i-2];
+            }
+            else{
+                cnt[i]=cost[i]+cnt[i-1];
+            }
+        }
+        return cnt[cost.length-1]<cnt[cost.length-2]?cnt[cost.length-1]:cnt[cost.length-2];
+    }
+}
