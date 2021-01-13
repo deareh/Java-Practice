@@ -1,0 +1,25 @@
+class Solution {
+    public int[] findRedundantConnection(int[][] edges) {
+        int[] nodes=new int[edges.length+1];
+        for(int i=0;i<nodes.length;i++){
+            nodes[i]=i;
+        }
+        for(int i=0;i<edges.length;i++){
+            if(find(nodes,edges[i][0])!=find(nodes,edges[i][1])){
+                union(nodes,edges[i][0],edges[i][1]);
+            }else{
+                return edges[i];
+            }
+        }
+        return edges[0];
+    }
+    public void union(int[] nodes,int i,int j){
+        nodes[find(nodes,i)]=find(nodes,j);
+    }
+    public int find(int[] nodes,int i){
+        if(nodes[i]!=i){
+            nodes[i]=find(nodes,nodes[i]);
+        }
+        return nodes[i];
+    }
+}
