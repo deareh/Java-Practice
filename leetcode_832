@@ -1,0 +1,35 @@
+//1
+class Solution {
+    public int[][] flipAndInvertImage(int[][] A) {
+        int[] res=new int[A[0].length];
+        for(int i=0;i<A.length;i++){
+            for(int j=0;j<A[0].length;j++){
+                res[A[0].length-1-j]=1^A[i][j];
+            }
+            A[i]=Arrays.copyOf(res,res.length);
+        }
+        return A;
+    }
+}
+//2
+class Solution {
+    public int[][] flipAndInvertImage(int[][] A) {
+        int len=A[0].length;
+        for(int i=0;i<A.length;i++){
+            int left=0;
+            int right=len-1;
+            while(left<right){
+                if(A[i][left]==A[i][right]){
+                    A[i][left]=1^A[i][left];
+                    A[i][right]=1^A[i][right];
+                }
+                left++;
+                right--;
+            }
+            if(left==right){
+                A[i][left]=1^A[i][left];
+            }
+        }
+        return A;
+    }
+}
