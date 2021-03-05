@@ -1,0 +1,29 @@
+class MyQueue {
+    List<Integer> deque;
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        deque=new ArrayList<>();
+    }
+    
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        deque.add(x);
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        int res=deque.get(0);
+        deque.remove(0);
+        return res;
+    }
+    
+    /** Get the front element. */
+    public int peek() {
+        return deque.get(0);
+    }
+    
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        return deque.isEmpty();
+    }
+}
