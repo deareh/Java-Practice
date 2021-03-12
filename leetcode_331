@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isValidSerialization(String preorder) {
+        int len=preorder.length();
+        int slot=1;
+        int i=0;
+        while(i<len){
+            if(slot==0){
+                return false;
+            }else if(preorder.charAt(i)==','){
+                i++;
+            }else if(preorder.charAt(i)=='#'){
+                i++;
+                slot--;
+            }else{
+                while(i<len&&preorder.charAt(i)!=','){
+                    i++;
+                }
+                slot++;
+            }
+        }
+        return slot==0;
+    }
+}
