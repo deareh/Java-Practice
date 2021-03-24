@@ -1,0 +1,23 @@
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        TreeMap<Integer,Integer> rightAll=new TreeMap<>();
+        for(int i=2;i<nums.length;i++){
+            rightAll.put(nums[i],rightAll.getOrDefault(nums[i],0)+1);
+        }
+        int left=nums[0];
+        for(int j=1;j<nums.length-1;j++){
+            if(left<nums[j]){
+                Integer right=rightAll.ceilingKey(left+1);
+                if(right!=null&&right<nums[j]){
+                    return true;
+                }
+            }
+            left=Math.min(left,nums[j]);
+            rightAll.put(nums[j+1],rightAll.get(nums[j+1])-1);
+            if(rightAll.get(nums[j+1])==0){
+                rightAll.remove(nums[j+1]);
+            }
+        }
+        return false;
+    }
+}
