@@ -1,0 +1,30 @@
+class Solution {
+    public int clumsy(int N) {
+        int res=N;
+        int temp=N;
+        int i=1;
+        while(i<N){
+            switch(i%4){
+                case 1:
+                    res-=temp;
+                    temp=temp*(N-i);
+                    res+=temp;
+                    break;
+                case 2:
+                    res-=temp;
+                    temp=temp/(N-i);
+                    res+=temp;
+                    break;
+                case 3:
+                    res+=N-i;
+                    break;
+                default:
+                    temp=i-N;
+                    res+=temp;
+                    break;
+            }
+            i++;
+        }
+        return res;
+    }
+}
