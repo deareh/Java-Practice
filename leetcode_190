@@ -1,0 +1,15 @@
+public class Solution {
+    public static final int m1=0x55555555;
+    public static final int m2=0x33333333;
+    public static final int m3=0x0f0f0f0f;
+    public static final int m4=0x00ff00ff;
+    // you need treat n as an unsigned value
+    public int reverseBits(int n) {
+        n=n>>>16|n<<16;
+        n=n>>>8&m4|(n&m4)<<8;
+        n=n>>>4&m3|(n&m3)<<4;
+        n=n>>>2&m2|(n&m2)<<2;
+        n=n>>>1&m1|(n&m1)<<1;
+        return n;
+    }
+}
