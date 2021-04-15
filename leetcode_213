@@ -1,0 +1,19 @@
+class Solution {
+    public int rob(int[] nums) {
+        if(nums.length==1){
+            return nums[0];
+        }else if(nums.length==2){
+            return Math.max(nums[0],nums[1]);
+        }
+        return Math.max(maxR(nums,0,nums.length-1),maxR(nums,1,nums.length));
+    }
+    public int maxR(int[] nums,int start,int end){
+        int[] max=new int[end-start];
+        max[0]=nums[start];
+        max[1]=Math.max(nums[start],nums[start+1]);
+        for(int i=2;i<end-start;i++){
+            max[i]=Math.max(max[i-2]+nums[i+start],max[i-1]);
+        }
+        return max[end-start-1];
+    }
+}
