@@ -1,0 +1,31 @@
+class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> res=new ArrayList<>();
+        int len=words.length*words[0].length();
+        HashMap<String,Integer> map=new HashMap<>();
+        for(int i=0;i<words.length;i++){
+            map.put(words[i],map.getOrDefault(words[i],0)+1);
+        }
+        for(int i=0;i<=(s.length()-len);i++){
+            if(contain(s.substring(i,i+len),new HashMap(map),words.length)){
+                res.add(i);
+            }
+        }
+        return res;
+    }
+    public boolean contain(String s,HashMap<String,Integer> map,int len){
+        int leng=s.length()/len;
+        for(int i=0;i<len;i++){
+            String str=s.substring(i*leng,(i+1)*leng);
+            if(map.containsKey(str)){
+                map.put(str,map.get(str)-1);
+                if(map.get(str)==0){
+                    map.remove(str);
+                }
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
