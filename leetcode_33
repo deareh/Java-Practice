@@ -1,0 +1,32 @@
+class Solution {
+    public int search(int[] nums, int target) 
+    {
+        int first=0,last=nums.length-1;
+        while(first<last-1){
+            int mid=(first+last)/2;
+            if(nums[mid]>nums[first]){
+                first=mid;
+            }
+            else{
+                last=mid;
+            }
+        }
+        return Math.max(search(nums,0,first,target),search(nums,last,nums.length-1,target));
+    }
+    public int search(int[] nums,int start,int end,int target){
+        if(target>nums[end]&&target<nums[start]){
+            return -1;
+        }
+        while(start<=end){
+            int mid=(start+end)/2;
+            if(target==nums[mid]){
+                return mid;
+            }else if(target>nums[mid]){
+                start=mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return -1;
+    }
+}
